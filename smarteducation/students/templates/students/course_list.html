@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Courses - Smart Education Analytics{% endblock %}
+{% block page_title %}Courses{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <form method="get" class="d-flex gap-2">
+        <input type="text" name="q" class="form-control" placeholder="Search courses..." value="{{ search_query }}" style="width: 250px;">
+        <button type="submit" class="btn btn-outline-primary"><i class="bi bi-search"></i></button>
+    </form>
+    <a href="{% url 'course_create' %}" class="btn btn-primary" style="background: var(--primary); border: none;">
+        <i class="bi bi-plus-lg me-1"></i>Add Course
+    </a>
+</div>
+
+<div class="row g-3">
+{% for course in courses %}
+<div class="col-xl-4 col-md-6">
+    <div class="stat-card">
+        <div class="d-flex justify-content-between align-items-start">
+            <div>
+                <span class="badge bg-primary mb-2">{{ course.code }}</span>
+                <h6 class="fw-bold">{{ course.name }}</h6>
+                <p class="text-muted small mb-1">{{ course.description|default:"No description"|truncatewords:15 }}</p>
+                <small class="text-muted"><i class="bi bi-person me-1"></i>{{ course.teacher|default:"No teacher assigned" }}</small>
+            </div>
+            <span class="badge bg-secondary">{{ course.credit_hours }} credits</span>
+        </div>
+    </div>
+</div>
+{% empty %}
+<div class="col-12"><div class="stat-card text-center py-5"><p class="text-muted">No courses found.</p></div></div>
+{% endfor %}
+</div>
+{% endblock %}
