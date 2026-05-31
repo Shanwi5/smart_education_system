@@ -24,4 +24,4 @@ RUN python manage.py collectstatic --noinput 2>/dev/null || true
 # Run migrations and start server
 EXPOSE 8000
 
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "3", "smarteducation.wsgi:application"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "1", "smarteducation.wsgi:application"]
